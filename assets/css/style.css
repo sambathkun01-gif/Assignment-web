@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+/* ============================================================
+   CSS VARIABLES — DARK MODE (default)
+   ============================================================ */
+:root {
+  --bg:       #0a0a0f;
+  --surface:  #12121a;
+  --card:     #1a1a26;
+  --border:   #2a2a3e;
+  --accent:   #e8b84b;
+  --accent2:  #e05c5c;
+  --text:     #e8e8f0;
+  --muted:    #6e6e8a;
+  --shadow:   0 2px 16px rgba(0,0,0,0.4);
+  --input-bg: #12121a;
+  --hover-bg: rgba(255,255,255,0.03);
+  --star-empty: #2a2a3e;
+}
+
+/* ============================================================
+   CSS VARIABLES — LIGHT MODE
+   Applied when <html> OR <body> has class="light-mode"
+   ============================================================ */
+html.light-mode,
+body.light-mode {
+  --bg:       #f2f2f8;
+  --surface:  #ffffff;
+  --card:     #ffffff;
+  --border:   #e0e0ec;
+  --accent:   #c97a00;
+  --accent2:  #c43838;
+  --text:     #1a1a2e;
+  --muted:    #7a7a9a;
+  --shadow:   0 2px 16px rgba(0,0,0,0.08);
+  --input-bg: #ffffff;
+  --hover-bg: rgba(0,0,0,0.02);
+  --star-empty: #d8d8e8;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  transition: background .3s ease, color .3s ease;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  background: var(--surface) !important;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top:0; z-index:1030;
+  box-shadow: var(--shadow);
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+.navbar-brand { font-family:'Bebas Neue',sans-serif; font-size:1.7rem; letter-spacing:2px; color:var(--accent) !important; }
+.navbar-brand span { color: var(--accent2); }
+.nav-link { color: var(--muted) !important; font-weight:500; transition:color .2s; }
+.nav-link:hover, .nav-link.active { color: var(--accent) !important; }
+.navbar-toggler { border-color: var(--border); }
+.navbar-toggler-icon { filter: invert(1); }
+body.light-mode .navbar-toggler-icon,
+html.light-mode .navbar-toggler-icon { filter: none; }
+.dropdown-menu { background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow); }
+.dropdown-item { color: var(--text); }
+.dropdown-item:hover { background: var(--hover-bg); color: var(--accent); }
+.dropdown-divider { border-color: var(--border) !important; opacity:1; }
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+  display:flex; align-items:center; gap:.4rem;
+  background: var(--card); border:1px solid var(--border);
+  color: var(--text); border-radius:20px;
+  padding:5px 14px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:600;
+  transition: all .2s;
+}
+.theme-toggle:hover { border-color:var(--accent); color:var(--accent); }
+.theme-toggle i { font-size:1rem; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-section {
+  padding:5rem 0 3rem; text-align:center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,184,75,.08) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s;
+}
+html.light-mode .hero-section,
+body.light-mode .hero-section {
+  background: linear-gradient(160deg, #fff8ee 0%, #f2f2f8 60%);
+}
+.hero-section h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,8vw,5.5rem); letter-spacing:4px; line-height:1.05; }
+.hero-section h1 span { color: var(--accent); }
+.hero-section p { color: var(--muted); font-size:1.05rem; }
+
+/* GENRE PILLS */
+.genre-pill {
+  border:1px solid var(--border) !important; color:var(--muted) !important;
+  border-radius:20px !important; padding:5px 16px !important; font-size:.8rem !important;
+  background: var(--card) !important; transition: all .2s !important;
+}
+.genre-pill:hover, .genre-pill.active {
+  background: var(--accent) !important; color:#fff !important;
+  border-color: var(--accent) !important; font-weight:600 !important;
+}
+
+/* ============================================================
+   MOVIE CARDS
+   ============================================================ */
+.movie-card {
+  background: var(--card); border:1px solid var(--border) !important;
+  border-radius:14px !important; overflow:hidden;
+  transition: transform .25s, border-color .25s, box-shadow .25s, background .3s;
+  text-decoration:none; color:inherit; display:block;
+  box-shadow: var(--shadow);
+}
+.movie-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent) !important;
+  box-shadow: 0 14px 40px rgba(232,184,75,.15) !important;
+  color: inherit;
+}
+.movie-poster { height:300px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; }
+.movie-poster img { width:100%; height:100%; object-fit:cover; }
+.poster-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:4.5rem; }
+.genre-badge {
+  position:absolute; top:10px; left:10px;
+  background: rgba(10,10,15,.82); color:var(--accent);
+  font-size:.7rem; font-weight:700; padding:3px 10px;
+  border-radius:20px; text-transform:uppercase; letter-spacing:.5px;
+}
+html.light-mode .genre-badge,
+body.light-mode .genre-badge { background:rgba(255,255,255,.92); border:1px solid rgba(201,122,0,.25); }
+.card-body-inner { padding:1rem; }
+.movie-title-card { font-weight:700; font-size:1rem; margin-bottom:.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.movie-year { color:var(--muted); font-size:.8rem; }
+
+/* ============================================================
+   STARS
+   ============================================================ */
+.stars-sm .bi-star-fill,
+.bi-star-fill.text-warning  { color: #f0a500 !important; font-size:.8rem; }
+.stars-sm .bi-star,
+.bi-star.text-warning        { color: var(--star-empty) !important; font-size:.8rem; }
+
+/* ============================================================
+   SECTION TITLE
+   ============================================================ */
+.section-title { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:2px; margin-bottom:1.5rem; }
+
+/* ============================================================
+   MOVIE DETAIL
+   ============================================================ */
+.detail-poster {
+  width:220px; height:330px; flex-shrink:0; border-radius:14px;
+  overflow:hidden; display:flex; align-items:center; justify-content:center;
+  font-size:5rem; box-shadow:0 8px 32px rgba(0,0,0,.2);
+}
+.detail-poster img { width:100%; height:100%; object-fit:cover; }
+
+/* Genre poster gradients — DARK */
+.genre-colors-Action    { background:linear-gradient(135deg,#1a1a3e,#2d1a4e); }
+.genre-colors-Sci-Fi    { background:linear-gradient(135deg,#0d2a3e,#1a3a5e); }
+.genre-colors-Drama     { background:linear-gradient(135deg,#2e1a1a,#3e2a1a); }
+.genre-colors-Thriller  { background:linear-gradient(135deg,#1a2e1a,#0d2a1a); }
+.genre-colors-Horror    { background:linear-gradient(135deg,#1a0d0d,#2e0d0d); }
+.genre-colors-Comedy    { background:linear-gradient(135deg,#2e2a0d,#3e360d); }
+.genre-colors-Romance   { background:linear-gradient(135deg,#2e1a2e,#3e1a3e); }
+.genre-colors-Animation { background:linear-gradient(135deg,#0d1a2e,#1a2e3e); }
+.genre-colors-default   { background:linear-gradient(135deg,#1a1a26,#2a2a3e); }
+
+/* Genre poster gradients — LIGHT */
+html.light-mode .genre-colors-Action,    body.light-mode .genre-colors-Action    { background:linear-gradient(135deg,#e8e0f8,#d0c8f0); }
+html.light-mode .genre-colors-Sci-Fi,    body.light-mode .genre-colors-Sci-Fi    { background:linear-gradient(135deg,#d0e8f8,#b8d8f0); }
+html.light-mode .genre-colors-Drama,     body.light-mode .genre-colors-Drama     { background:linear-gradient(135deg,#f8e8e0,#f0d8c8); }
+html.light-mode .genre-colors-Thriller,  body.light-mode .genre-colors-Thriller  { background:linear-gradient(135deg,#d8f0e0,#c0e8cc); }
+html.light-mode .genre-colors-Horror,    body.light-mode .genre-colors-Horror    { background:linear-gradient(135deg,#f0d8d8,#e8c0c0); }
+html.light-mode .genre-colors-Comedy,    body.light-mode .genre-colors-Comedy    { background:linear-gradient(135deg,#f8f0d0,#f0e8b0); }
+html.light-mode .genre-colors-Romance,   body.light-mode .genre-colors-Romance   { background:linear-gradient(135deg,#f8d8f0,#f0c0e8); }
+html.light-mode .genre-colors-Animation, body.light-mode .genre-colors-Animation { background:linear-gradient(135deg,#d8e8f8,#c0d8f0); }
+html.light-mode .genre-colors-default,   body.light-mode .genre-colors-default   { background:linear-gradient(135deg,#ebebf5,#dddde8); }
+
+/* ============================================================
+   REVIEW CARDS
+   ============================================================ */
+.review-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:1rem; margin-bottom:.75rem;
+  transition: background .3s, border-color .3s;
+}
+.review-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.85rem; color:#fff; flex-shrink:0;
+}
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+.mm-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:2rem; box-shadow:var(--shadow);
+  transition: background .3s, border-color .3s;
+}
+.form-control, .form-select {
+  background: var(--input-bg) !important; border:1px solid var(--border) !important;
+  color: var(--text) !important; transition: border-color .2s, background .3s, color .3s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(232,184,75,.15) !important;
+}
+.form-control::placeholder { color: var(--muted) !important; }
+.form-label { color:var(--muted); font-size:.85rem; font-weight:500; }
+.form-check-input { background-color:var(--input-bg); border-color:var(--border); }
+.form-check-input:checked { background-color:var(--accent); border-color:var(--accent); }
+.input-group-text {
+  background:var(--surface) !important; border-color:var(--border) !important;
+  color:var(--muted) !important;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-mm-primary { background:var(--accent); color:#fff; font-weight:700; border:none; transition:filter .2s; }
+.btn-mm-primary:hover  { filter:brightness(1.1); color:#fff; }
+.btn-mm-danger  { background:var(--accent2); color:#fff; border:none; transition:filter .2s; }
+.btn-mm-danger:hover   { filter:brightness(1.1); color:#fff; }
+.btn-mm-ghost   { background:transparent; color:var(--text); border:1px solid var(--border); transition:all .2s; }
+.btn-mm-ghost:hover    { border-color:var(--accent); color:var(--accent); background:var(--hover-bg); }
+.btn-mm-dark    { background:var(--surface); color:var(--text); border:1px solid var(--border); transition:all .2s; }
+.btn-mm-dark:hover     { border-color:var(--accent); color:var(--accent); }
+
+/* ============================================================
+   STAR PICKER
+   ============================================================ */
+.star-picker { display:flex; flex-direction:row-reverse; justify-content:flex-end; gap:.2rem; }
+.star-picker input[type=radio] { display:none; }
+.star-picker label { font-size:1.8rem; cursor:pointer; color:var(--star-empty); transition:color .1s; line-height:1; }
+.star-picker input[type=radio]:checked ~ label,
+.star-picker label:hover,
+.star-picker label:hover ~ label { color:#f0a500; }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.mm-table { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+.mm-table table { margin:0; }
+.mm-table th { background:var(--surface); color:var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.5px; border-color:var(--border) !important; }
+.mm-table td { border-color:var(--border) !important; color:var(--text); vertical-align:middle; }
+.mm-table tr:hover td { background:var(--hover-bg); }
+
+/* ============================================================
+   ADMIN
+   ============================================================ */
+.stat-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:1.5rem; box-shadow:var(--shadow);
+  transition:all .2s; text-decoration:none; display:block; color:inherit;
+}
+.stat-card:hover { border-color:var(--accent); box-shadow:0 8px 28px rgba(232,184,75,.12); color:inherit; }
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--accent); line-height:1; }
+.stat-label { color:var(--muted); font-size:.85rem; margin-top:.25rem; }
+
+.admin-bar {
+  background:var(--surface); border-bottom:1px solid var(--border);
+  padding:.65rem 1.5rem; display:flex; align-items:center; gap:.75rem;
+  font-size:.85rem; transition: background .3s;
+}
+html.light-mode .admin-bar,
+body.light-mode .admin-bar { background:#fff8ee; border-bottom-color:#fce8c0; }
+.badge-admin { background:var(--accent2); color:#fff; padding:2px 10px; border-radius:4px; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+
+/* ============================================================
+   AVATAR
+   ============================================================ */
+.user-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.85rem; color:#fff;
+}
+.user-avatar-lg { width:56px; height:56px; font-size:1.3rem; }
+
+/* ============================================================
+   ALERTS
+   ============================================================ */
+.alert-success { background:rgba(74,197,126,.12); border-color:rgba(74,197,126,.3); color:#4ac57e; }
+.alert-danger  { background:rgba(224,92,92,.12);  border-color:rgba(224,92,92,.3);  color:var(--accent2); }
+.alert-info    { background:rgba(232,184,75,.1);  border-color:rgba(232,184,75,.3); color:var(--accent); }
+
+html.light-mode .alert-success, body.light-mode .alert-success { background:#eefaf4; border-color:#b2e6cc; color:#1a7a46; }
+html.light-mode .alert-danger,  body.light-mode .alert-danger  { background:#fdeaea; border-color:#f5b8b8; color:#b03030; }
+html.light-mode .alert-info,    body.light-mode .alert-info    { background:#fff8ee; border-color:#fce8c0; color:#a06000; }
+
+/* ============================================================
+   MISC
+   ============================================================ */
+.text-accent   { color:var(--accent) !important; }
+.text-muted-mm { color:var(--muted) !important; }
+.border-mm     { border-color:var(--border) !important; }
+.bg-surface    { background:var(--surface) !important; }
+.bg-card       { background:var(--card) !important; }
+hr             { border-color:var(--border); opacity:1; }
+.empty-state   { text-align:center; padding:4rem 1rem; color:var(--muted); }
+.empty-state .empty-icon { font-size:3.5rem; margin-bottom:1rem; }
+.search-box    { background:var(--input-bg) !important; border:1px solid var(--border) !important; color:var(--text) !important; border-radius:8px; }
+.search-box:focus { border-color:var(--accent) !important; box-shadow:none !important; }
+.badge.bg-surface { background:var(--surface) !important; color:var(--muted); border:1px solid var(--border); }
+footer { background:var(--surface) !important; border-top:1px solid var(--border); transition: background .3s; }
