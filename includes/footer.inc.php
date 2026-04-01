@@ -9,9 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// ============================================================
-//  THEME TOGGLE
-// ============================================================
+
 (function () {
   const btn   = document.getElementById('themeToggle');
   const icon  = document.getElementById('themeIcon');
@@ -43,9 +41,6 @@
   });
 })();
 
-// ============================================================
-//  SWEETALERT2 — respects current theme
-// ============================================================
 $(document).on('click', '.confirm-delete', function (e) {
   e.preventDefault();
   const href   = $(this).attr('href');
@@ -62,9 +57,6 @@ $(document).on('click', '.confirm-delete', function (e) {
   }).then(r => { if (r.isConfirmed) window.location.href = href; });
 });
 
-// ============================================================
-//  SHOW / HIDE PASSWORD
-// ============================================================
 $(document).on('change', '.show-password-toggle', function () {
   const target = $($(this).data('target'));
   target.attr('type', this.checked ? 'text' : 'password');

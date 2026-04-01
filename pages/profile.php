@@ -73,7 +73,6 @@ $photo=$user->photo&&file_exists($user->photo)?$user->photo:'./assets/images/ima
         </form>
       </div>
     </div>
-
     <!-- Change Password -->
     <div class="col-lg-6">
       <div class="mm-card">
